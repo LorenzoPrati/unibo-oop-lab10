@@ -43,12 +43,12 @@ public final class LambdaFilter extends JFrame {
         IDENTITY("No modifications", Function.identity()),
         LOWER("Convert to lowercase", String::toLowerCase),
         COUNT_CHARS("Count the number of chars", s -> Integer.toString((int) s.chars().count())),
-        COUNT_LINES("Count the number of lines", s -> 1 + Integer.toString((int) s.chars()
+        COUNT_LINES("Count the number of lines", s -> Integer.toString(1 + (int) s.chars()
                 .filter(c -> c == '\n').count())),
         ALPHABETICAL_SORT("List all the words in alphabetical order", s ->
-                Arrays.stream(s.split(" ")).sorted().collect(Collectors.joining("\n"))),
-        COUNT_PER_WORDS("Write the count for each word", s -> 
-                Arrays.stream(s.split(" ")).sorted()
+                Arrays.stream(s.split("(\\s)+")).sorted().collect(Collectors.joining("\n"))),
+        COUNT_PER_WORD("Write the count for each word", s -> 
+                Arrays.stream(s.split("(\\s)+")).sorted()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream()
                 .map(e -> e.getKey() + " -> " + e.getValue())
